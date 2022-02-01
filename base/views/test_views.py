@@ -49,6 +49,17 @@ def getTests(request):
     return Response({'tests':serializer.data,'page':page,'pages':paginator.num_pages}) 
 
 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def getTestsMobile(request):
+  
+    tests = Test.objects.all().order_by('_id')
+
+    serializer = TestSerializer(tests,many=True)
+    return Response(serializer.data) 
+
+
+
 
 @api_view(["POST"])
 # @permission_classes([IsAuthenticated])
